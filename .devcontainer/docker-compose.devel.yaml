@@ -1,0 +1,22 @@
+services:
+  java-dev:
+    container_name: java-dev
+    image: java/java:dev
+    build:
+      context: .
+      dockerfile: dockerfile.devel
+      args:
+        - JAVA_VERSION=1.1.9-21-bookworm
+    volumes:
+      - ../:/home/vscode/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    user: ${UID:-1000}:${GID:-1000}
+    command: sleep infinity
+    networks:
+      - default
+
+networks:
+  default:
+    name: sb-dev-net
+    external: true
+    driver: bridge

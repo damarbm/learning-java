@@ -1,0 +1,19 @@
+# args
+ARG JAVA_VERSION=1.1.9-21-bookworm
+
+# Use the official Java image as a base
+FROM mcr.microsoft.com/devcontainers/java:${JAVA_VERSION}
+
+# install docker engine for docker-in-docker
+RUN curl -fsSL https://get.docker.com/ | sh
+
+# check sdkman installation
+RUN bash -c "source /usr/local/sdkman/bin/sdkman-init.sh && sdk version"
+
+# install maven
+RUN bash -c "source /usr/local/sdkman/bin/sdkman-init.sh && sdk install maven 3.9.11"
+
+# install Oracle GraalVM (Downloads from oracle.com)
+RUN bash -c "source /usr/local/sdkman/bin/sdkman-init.sh && sdk install java 21.0.2-graal"
+
+CMD [ "bash" ]
